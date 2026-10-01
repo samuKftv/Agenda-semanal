@@ -158,6 +158,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--turquesa); outl
   color: #d9d6ff;
 }
 .pestana[aria-current="true"] .pestana__num { color: #fff; }
+.pestana[aria-current="true"] .pestana__dia { color: #d9d6ff; }
 .pestana[aria-current="true"] .pestana__puntos i { background: #fff; }
 
 /* ===== Carrusel ===== */
