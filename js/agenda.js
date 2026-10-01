@@ -55,6 +55,11 @@ function textoRango(lunes, ultimo) {
   const inicio = mismoMes ? lunes.getDate() : `${lunes.getDate()} ${MESES[lunes.getMonth()]}`;
   return `${inicio} – ${ultimo.getDate()} ${MESES[ultimo.getMonth()]} ${ultimo.getFullYear()}`;
 }
+// El curso empieza en septiembre: abril de 2026 → "25/26", octubre de 2026 → "26/27"
+function textoCurso(fecha) {
+  const inicio = fecha.getMonth() >= 8 ? fecha.getFullYear() : fecha.getFullYear() - 1;
+  return `${String(inicio).slice(2)}/${String(inicio + 1).slice(2)}`;
+}
 function escapar(texto = "") {
   return String(texto).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
@@ -102,6 +107,7 @@ function pintarSemana(diaInicial) {
 
   const ultimo = dias[dias.length - 1].fecha;
   $("rango-semana").textContent = textoRango(lunes, ultimo);
+  $("curso").textContent = textoCurso(lunes);
   document.title = `Agenda ${textoRango(lunes, ultimo)} · CIFP Las Indias`;
 
   // Pestañas

@@ -70,7 +70,7 @@ body {
 
 .cabecera__logo {
   display: block;
-  height: 64px;
+  height: 96px;
   width: auto;
   max-width: 100%;
   background: var(--logo-fondo);
@@ -373,7 +373,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--turquesa); outl
     gap: 12px;
     padding-top: 18px;
   }
-  .cabecera__logo { height: 52px; }
+  .cabecera__logo { height: 76px; }
   .navegacion { justify-self: center; }
 
   .pestanas { gap: 4px; padding: 8px 12px; }
