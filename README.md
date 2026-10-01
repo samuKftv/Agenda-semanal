@@ -6,20 +6,18 @@ Está publicada con GitHub Pages y lee los eventos de una hoja de Google, así q
 
 ## Añadir o cambiar eventos
 
-1. Abre la hoja de Google de la agenda.
-2. En la pestaña **Eventos**, añade una fila por evento:
+**Lo normal: con el formulario de Google.** Se rellena fecha, horas, categoría, título y
+texto, y el evento aparece en la web al recargarla. La web lo coloca sola en su semana y su día.
 
-   | Fecha | Hora | Categoría | Título | Texto | Enlace |
-   |---|---|---|---|---|---|
-   | 15/04/2026 | 9:00-11:00 | Ponencia | Ponencia sobre Seguridad Vial | El alumnado de 1º CS Movilidad… | |
+- **Corregir o borrar** un evento: edita o borra su fila en la pestaña
+  «Respuestas de formulario 1» de la hoja.
+- **Avisos y convocatorias** (se ven bajo la agenda durante un periodo): pestaña **Avisos**
+  de la hoja, columnas Desde, Hasta, Título, Texto y Enlace.
+- También se pueden escribir eventos a mano en la pestaña **Eventos** de la hoja
+  (Fecha, Hora, Categoría, Título, Texto, Enlace). La web junta las dos pestañas.
 
-   - **Fecha** y **Título** son obligatorios. La web coloca el evento sola en su semana y su día.
-   - **Hora** puede ser `9:00` o `9:00-14:00`. Si está vacía, el evento sale al final del día.
-     La columna está en formato texto para que Google no convierta las horas; no le cambies el formato.
-   - **Categoría** se elige en el desplegable: Erasmus, Formación, Ponencia, Reunión, Actividad u Otro.
-   - **Enlace** es opcional y añade un botón «Más información».
-3. En la pestaña **Avisos** van las convocatorias que deben verse toda una semana o un periodo (columnas Desde y Hasta).
-4. Los cambios aparecen en cuanto se recarga la web.
+No cambies el nombre de las pestañas ni los títulos de las columnas, ni los títulos de las
+preguntas del formulario: la web los usa para encontrar cada dato.
 
 ## Puesta en marcha (solo una vez)
 
@@ -36,8 +34,8 @@ En `js/config.js`, pon en `idHoja` el código de la hoja (lo que hay entre `/d/`
 
 ```js
 const CONFIG = {
-  idHoja: "1eIdWRvaQoOKH9tnOHouldwjsa8w1CJ1w",
-  pestanaEventos: "Eventos",
+  idHoja: "1AfmUI5j05UPVrYRunPU9P-24omxDVhjal8POLqWPbjc",
+  pestanaEventos: ["Eventos", "Respuestas de formulario 1"],
   pestanaAvisos: "Avisos",
 };
 ```

@@ -9,7 +9,7 @@
 // =====================================================================
 
 const CONFIG = {
-  idHoja: "1eIdWRvaQoOKH9tnOHouldwjsa8w1CJ1w",
-  pestanaEventos: "Eventos",
+  idHoja: "1AfmUI5j05UPVrYRunPU9P-24omxDVhjal8POLqWPbjc",
+  pestanaEventos: ["Eventos", "Respuestas de formulario 1"],
   pestanaAvisos: "Avisos",
 };
