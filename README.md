@@ -66,5 +66,9 @@ copia de seguridad si Google falla.
 
 ## Trucos
 
+- Si cambias `css/estilos.css` o algún archivo de `js/`, sube el número `?v=` que aparece en
+  `index.html` (por ejemplo de `?v=4` a `?v=5`). Así los navegadores descargan la versión nueva
+  en lugar de usar la que tienen guardada.
+
 - Enlace directo a un día: `https://USUARIO.github.io/Agenda-semanal/#2026-04-15`
 - En el ordenador se cambia de día con las flechas del teclado ← →.

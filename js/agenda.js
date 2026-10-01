@@ -177,8 +177,6 @@ function marcarDia() {
 
   ajustarAltura();
 
-  const d = dias[indiceDia];
-  if (d) try { history.replaceState(null, "", `#${d.clave}`); } catch (e) { /* sin historial */ }
 }
 
 // La altura del carrusel se ajusta al día visible (también si cambia al cargar fuentes)
