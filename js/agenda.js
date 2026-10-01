@@ -220,12 +220,12 @@ function moverSemana(direccion) {
 }
 
 // Semana inicial: la del enlace (#2026-04-15), la actual si tiene eventos,
-// la próxima con eventos o, si no hay ninguna, la última publicada.
+// la próxima con eventos o, si no hay ninguna futura, la actual (aunque esté vacía).
 function semanaInicial() {
   const hash = location.hash.slice(1);
   if (/^\d{4}-\d{2}-\d{2}$/.test(hash)) return { semana: claveFecha(lunesDe(leerFecha(hash))), dia: hash };
   const actual = claveFecha(lunesDe(new Date()));
-  return { semana: semanas.find(s => s >= actual) || semanas[semanas.length - 1] || actual };
+  return { semana: semanas.find(s => s >= actual) || actual };
 }
 
 // ---------- Carga de datos ----------
