@@ -283,21 +283,39 @@ async function descargarPestana(pestana) {
   return resp.text();
 }
 
+// Hora de una fila: columna «Hora» (9:00-14:00) o «Hora de inicio» + «Hora de fin»
+// (las del formulario). Quita los segundos que añade Google (9:00:00 → 9:00).
+function horaDeHoja(f) {
+  const inicio = f["hora de inicio"] || f["hora inicio"] || "";
+  const fin = f["hora de fin"] || f["hora fin"] || "";
+  const hora = f.hora || [inicio, fin].filter(Boolean).join("-");
+  return hora.replace(/(\d{1,2}:\d{2}):\d{2}/g, "$1");
+}
+
 async function cargarDesdeHoja() {
-  const [csvEventos, csvAvisos] = await Promise.all([
-    descargarPestana(CONFIG.pestanaEventos),
+  // pestanaEventos puede ser una pestaña o varias (p. ej. la tabla y las respuestas del formulario)
+  const pestanas = [].concat(CONFIG.pestanaEventos);
+  const [csvAvisos, ...csvEventos] = await Promise.all([
     CONFIG.pestanaAvisos ? descargarPestana(CONFIG.pestanaAvisos).catch(() => "") : "",
+    ...pestanas.map(descargarPestana),
   ]);
-  const eventos = leerCSV(csvEventos)
+  const vistos = new Set();
+  const eventos = csvEventos.flatMap(leerCSV)
     .map(f => ({
       fecha: fechaDeHoja(f.fecha || ""),
-      hora: (f.hora || "").replace(/(\d{1,2}:\d{2}):\d{2}/g, "$1"),
+      hora: horaDeHoja(f),
       categoria: categoriaDeHoja(f.categoria),
       titulo: f.titulo,
       texto: f.texto,
       enlace: f.enlace,
     }))
-    .filter(e => e.fecha && e.titulo);
+    .filter(e => {
+      // Fuera filas incompletas y repetidas
+      const clave = `${e.fecha}|${e.hora}|${e.titulo}`;
+      if (!e.fecha || !e.titulo || vistos.has(clave)) return false;
+      vistos.add(clave);
+      return true;
+    });
   const avisos = leerCSV(csvAvisos)
     .map(f => ({
       desde: fechaDeHoja(f.desde || ""),
