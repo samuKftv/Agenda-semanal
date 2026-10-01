@@ -1,0 +1,85 @@
+{
+  "avisos": [
+    {
+      "desde": "2026-04-13",
+      "hasta": "2026-04-17",
+      "titulo": "Convocatoria de Proyectos de Innovación 2026-2027",
+      "texto": "Consejería de Educación, Formación Profesional, Actividad Física y Deportes. Bases, requisitos, plazos y documentación necesaria en la página específica.",
+      "enlace": "#"
+    }
+  ],
+  "eventos": [
+    {
+      "fecha": "2026-04-13",
+      "hora": "9:00-14:00",
+      "categoria": "formacion",
+      "titulo": "Curso de IA aplicada al diseño de personajes 3D",
+      "texto": "El alumnado de 1ºA Caracterización recibe la tercera jornada del curso de inteligencia artificial aplicada al diseño de personajes 3D."
+    },
+    {
+      "fecha": "2026-04-13",
+      "categoria": "erasmus",
+      "titulo": "Jobshadowing en Sicilia",
+      "texto": "Nuestro jefe de estudios de la tarde, Ramón Gutiérrez, inicia una movilidad de jobshadowing a Sicilia en el marco de nuestro proyecto KA131-2024."
+    },
+    {
+      "fecha": "2026-04-13",
+      "categoria": "erasmus",
+      "titulo": "Jobshadowing en Finlandia",
+      "texto": "Nuestra compañera Toñi Martín inicia una movilidad de jobshadowing a Finlandia en el marco de nuestro proyecto KA131-2024."
+    },
+    {
+      "fecha": "2026-04-13",
+      "categoria": "erasmus",
+      "titulo": "Recibimos a estudiantes de Lituania",
+      "texto": "Recibimos a un grupo de estudiantes de masaje terapéutico y una profesora del centro Alytaus Profesinio Rengimo Centras de Lituania que estarán 10 días en nuestro centro."
+    },
+    {
+      "fecha": "2026-04-14",
+      "hora": "9:00",
+      "categoria": "erasmus",
+      "titulo": "Visita del Lycée Les Palmiers (Niza)",
+      "texto": "Dos alumnas de la especialidad de confección del Lycée Professionnel Les Palmiers de Niza visitan el centro para conocer las instalaciones."
+    },
+    {
+      "fecha": "2026-04-14",
+      "hora": "19:10-20:00",
+      "categoria": "ponencia",
+      "titulo": "Plan de transformación digital",
+      "texto": "El alumnado de 1ºB Estética y Belleza recibe una ponencia online impartida por Alejandro Toledo Acuña, project manager de Opinno, consultora global de innovación, en el módulo de Digitalización. Esta actividad es parte del proyecto de digitalización que tiene que realizar el grupo para la tercera evaluación."
+    },
+    {
+      "fecha": "2026-04-15",
+      "hora": "9:00-11:00",
+      "categoria": "ponencia",
+      "titulo": "Ponencia sobre Seguridad Vial",
+      "texto": "El alumnado de 1º CS Movilidad recibe una ponencia sobre Seguridad Vial impartida por Jesús Rodríguez, guardia civil del Equipo de Investigación de Siniestros Viales y experto en tráfico, movilidad y seguridad vial."
+    },
+    {
+      "fecha": "2026-04-15",
+      "categoria": "erasmus",
+      "titulo": "Jobshadowing en Turín",
+      "texto": "Nuestra compañera Ana Marina inicia una movilidad de jobshadowing a Turín en el marco de nuestro proyecto KA121-2025."
+    },
+    {
+      "fecha": "2026-04-15",
+      "hora": "13:40",
+      "categoria": "reunion",
+      "titulo": "Reunión de departamento"
+    },
+    {
+      "fecha": "2026-04-16",
+      "hora": "13:00-15:00",
+      "categoria": "reunion",
+      "titulo": "Reuniones de equipos educativos",
+      "texto": "Grupos de 2º de Grado Medio."
+    },
+    {
+      "fecha": "2026-04-17",
+      "hora": "8:00-11:00",
+      "categoria": "ponencia",
+      "titulo": "Ponencia sobre Mercancías Peligrosas",
+      "texto": "El alumnado de 1º CS Movilidad recibe una ponencia sobre el transporte de mercancías peligrosas impartida por Aaron Hernández García, profesor de la autoescuela Lazarte."
+    }
+  ]
+}

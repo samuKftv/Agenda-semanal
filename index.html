@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Agenda semanal · CIFP Las Indias</title>
+  <meta name="description" content="Eventos y actividades de la semana en el CIFP Las Indias.">
+  <link rel="icon" href="img/logotipo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera__marca">
+      <img class="cabecera__logo" src="img/logotipo.png" alt="CIFP Las Indias" width="1136" height="467">
+    </div>
+
+    <div class="cabecera__titulo">
+      <p class="cabecera__antetitulo">Agenda semanal · Curso 25/26</p>
+      <h1 id="rango-semana">Cargando…</h1>
+    </div>
+
+    <nav class="navegacion" aria-label="Cambiar de semana">
+      <button class="boton boton--icono" id="anterior" aria-label="Semana anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button class="boton" id="hoy">Esta semana</button>
+      <button class="boton boton--icono" id="siguiente" aria-label="Semana siguiente">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Pestañas de los días: también sirven de indicador de posición -->
+  <nav class="pestanas" id="pestanas" aria-label="Días de la semana"></nav>
+
+  <main class="carrusel">
+    <button class="carrusel__flecha carrusel__flecha--izq" id="dia-anterior" aria-label="Día anterior">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <div class="carrusel__pista" id="pista" aria-live="polite"></div>
+    <button class="carrusel__flecha carrusel__flecha--der" id="dia-siguiente" aria-label="Día siguiente">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </main>
+
+  <p class="pista-deslizar" id="pista-deslizar">Desliza para pasar de día →</p>
+
+  <section class="avisos" id="avisos" hidden>
+    <h2 class="avisos__titulo">Avisos y convocatorias</h2>
+    <div class="avisos__lista" id="avisos-lista"></div>
+  </section>
+
+  <footer class="pie">
+    CIFP Las Indias · Agenda de eventos del centro
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/agenda.js"></script>
+</body>
+</html>
