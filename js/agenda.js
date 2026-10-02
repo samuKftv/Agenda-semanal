@@ -276,8 +276,10 @@ function categoriaDeHoja(texto) {
 
 // Descarga una pestaña de la hoja de Google como CSV (siempre la versión más reciente)
 async function descargarPestana(pestana) {
+  // filaCabecera: fila donde están los títulos de las columnas (por encima puede haber un rótulo)
+  const fila = CONFIG.filaCabecera || 1;
   const url = `https://docs.google.com/spreadsheets/d/${CONFIG.idHoja}/gviz/tq` +
-              `?tqx=out:csv&sheet=${encodeURIComponent(pestana)}&t=${Date.now()}`;
+              `?tqx=out:csv&headers=1&range=A${fila}:Z&sheet=${encodeURIComponent(pestana)}&t=${Date.now()}`;
   const resp = await fetch(url, { cache: "no-store" });
   if (!resp.ok) throw new Error(`HTTP ${resp.status} al leer la pestaña ${pestana}`);
   return resp.text();
