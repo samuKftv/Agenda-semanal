@@ -6,25 +6,29 @@ Está publicada con GitHub Pages y lee los eventos de una hoja de Google, así q
 
 ## Añadir o cambiar eventos
 
-**Lo normal: con el formulario de Google.** Se rellena fecha, horas, categoría, título y
-texto, y el evento aparece en la web al recargarla. La web lo coloca sola en su semana y su día.
+Todo se hace en la hoja de Google de la agenda. La pestaña **«Cómo se usa»** de la propia
+hoja lo explica paso a paso.
 
-- **Corregir o borrar** un evento: edita o borra su fila en la pestaña
-  «Respuestas de formulario 1» de la hoja.
-- **Avisos y convocatorias** (se ven bajo la agenda durante un periodo): pestaña **Avisos**
-  de la hoja, columnas Desde, Hasta, Título, Texto y Enlace.
-- También se pueden escribir eventos a mano en la pestaña **Eventos** de la hoja
-  (Fecha, Hora, Categoría, Título, Texto, Enlace). La web junta las dos pestañas.
+1. En la pestaña **Agenda**, escribe una fila por evento en la primera fila libre:
+   Fecha, Hora, Categoría, Título, Texto y Enlace.
+   - **Fecha**, **Categoría** y **Título** son obligatorios. Si falta el título, la celda se pone roja.
+   - **Hora** puede ser `9:00` o `9:00-14:00`. Sin hora, el evento sale al final del día.
+   - **Día** y **Semana** se calculan solas, y las semanas alternas salen en color.
+   - El orden de las filas da igual: la web coloca cada evento en su semana y su día.
+2. En la pestaña **Convocatorias** van los avisos que se ven bajo la agenda durante un
+   periodo (Desde – Hasta).
+3. Los cambios aparecen en cuanto se recarga la web.
 
-No cambies el nombre de las pestañas ni los títulos de las columnas, ni los títulos de las
-preguntas del formulario: la web los usa para encontrar cada dato.
+No cambies el nombre de las pestañas, la fila 3 con los títulos de las columnas, el orden
+de las columnas ni el formato de la columna Hora.
 
 ## Puesta en marcha (solo una vez)
 
 ### 1. Crear la hoja de Google
 
-1. Sube `plantilla/Agenda-semanal-plantilla.xlsx` a Google Drive y ábrela con Hojas de cálculo de Google.
-2. Pulsa **Compartir**:
+1. Crea una hoja de Google vacía y entra en **Archivo → Importar → Subir**.
+2. Elige `plantilla/Agenda-semanal-hoja.xlsx` y la opción **Insertar hojas nuevas**.
+3. Pulsa **Compartir**:
    - En «Acceso general» elige **Cualquier persona con el enlace → Lector**. Así la web puede leerla.
    - Añade como **Editor** al profesorado que vaya a escribir eventos.
 
@@ -35,12 +39,12 @@ En `js/config.js`, pon en `idHoja` el código de la hoja (lo que hay entre `/d/`
 ```js
 const CONFIG = {
   idHoja: "1AfmUI5j05UPVrYRunPU9P-24omxDVhjal8POLqWPbjc",
-  pestanaEventos: ["Eventos", "Respuestas de formulario 1"],
-  pestanaAvisos: "Avisos",
+  pestanaEventos: "Agenda",
+  pestanaAvisos: "Convocatorias",
+  filaCabecera: 3,
 };
 ```
 
-No cambies el nombre de las pestañas «Eventos» y «Avisos» ni los títulos de sus columnas.
 Si dejas `idHoja` vacío, la web usa el archivo `datos/eventos.json`, que también sirve de
 copia de seguridad si Google falla.
 
@@ -60,7 +64,7 @@ copia de seguridad si Google falla.
 | `js/agenda.js` | Programa que coloca los eventos; las categorías y sus colores están al principio |
 | `datos/eventos.json` | Eventos de respaldo si no hay hoja configurada |
 | `img/logotipo.png` | Logotipo del centro |
-| `plantilla/` | Plantilla para crear la hoja de Google |
+| `plantilla/Agenda-semanal-hoja.xlsx` | Pestañas con formato para crear la hoja de Google |
 
 ## Trucos
 
