@@ -6,6 +6,9 @@
 //  pestanaEventos puede ser una pestaña o una lista de pestañas.
 //  filaCabecera: fila con los títulos de las columnas (encima van el
 //  rótulo y las instrucciones).
+//  primerDia: "domingo" (formato americano) o "lunes".
+//  finDeSemana: "siempre" muestra sábado y domingo aunque estén vacíos;
+//  "con-eventos" solo los muestra si tienen algún evento.
 //  Si idHoja se deja vacío, la agenda usa el archivo datos/eventos.json.
 // =====================================================================
 
@@ -14,4 +17,6 @@ const CONFIG = {
   pestanaEventos: "Agenda",
   pestanaAvisos: "Convocatorias",
   filaCabecera: 3,
+  primerDia: "domingo",
+  finDeSemana: "siempre",
 };

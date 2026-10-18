@@ -39,8 +39,10 @@ function sumarDias(fecha, n) {
   f.setDate(f.getDate() + n);
   return f;
 }
-function lunesDe(fecha) {
-  return sumarDias(fecha, -((fecha.getDay() + 6) % 7));
+// Primer día de la semana de una fecha: domingo (formato americano) o lunes, según CONFIG.primerDia
+function inicioSemana(fecha) {
+  const desde = (CONFIG.primerDia || "domingo") === "lunes" ? 1 : 0;
+  return sumarDias(fecha, -((fecha.getDay() - desde + 7) % 7));
 }
 function minutosInicio(hora) {
   if (!hora) return Infinity; // los eventos sin hora van al final del día
@@ -50,9 +52,9 @@ function minutosInicio(hora) {
 function formatearHora(hora) {
   return hora.split(/\s*[-–]\s*/).join(" – ") + " h";
 }
-function textoRango(lunes, ultimo) {
-  const mismoMes = lunes.getMonth() === ultimo.getMonth();
-  const inicio = mismoMes ? lunes.getDate() : `${lunes.getDate()} ${MESES[lunes.getMonth()]}`;
+function textoRango(primero, ultimo) {
+  const mismoMes = primero.getMonth() === ultimo.getMonth();
+  const inicio = mismoMes ? primero.getDate() : `${primero.getDate()} ${MESES[primero.getMonth()]}`;
   return `${inicio} – ${ultimo.getDate()} ${MESES[ultimo.getMonth()]} ${ultimo.getFullYear()}`;
 }
 // El curso empieza en septiembre: abril de 2026 → "25/26", octubre de 2026 → "26/27"
@@ -67,8 +69,8 @@ function escapar(texto = "") {
 // ---------- Estado ----------
 let eventos = [];
 let avisos = [];
-let semanas = [];        // lunes (clave) de cada semana que tiene eventos
-let semanaActual = null; // clave del lunes mostrado
+let semanas = [];        // primer día (clave) de cada semana que tiene eventos
+let semanaActual = null; // clave del primer día de la semana mostrada
 let dias = [];           // días de la semana mostrada
 let indiceDia = 0;       // diapositiva visible
 
@@ -91,24 +93,30 @@ function tarjetaEvento(ev) {
 }
 
 function pintarSemana(diaInicial) {
-  const lunes = leerFecha(semanaActual);
+  const inicio = leerFecha(semanaActual);
   const hoy = claveFecha(new Date());
+  const siempreFinde = (CONFIG.finDeSemana || "siempre") === "siempre";
 
-  // De lunes a viernes; sábado y domingo solo si tienen eventos.
+  // Los 7 días desde el primero de la semana; sábado y domingo se pueden
+  // ocultar cuando no tienen eventos (CONFIG.finDeSemana = "con-eventos").
   dias = [];
   for (let i = 0; i < 7; i++) {
-    const fecha = sumarDias(lunes, i);
+    const fecha = sumarDias(inicio, i);
     const clave = claveFecha(fecha);
     const delDia = eventos
       .filter(e => e.fecha === clave)
       .sort((a, b) => minutosInicio(a.hora) - minutosInicio(b.hora));
-    if (i < 5 || delDia.length) dias.push({ fecha, clave, eventos: delDia, esHoy: clave === hoy });
+    const finde = fecha.getDay() === 0 || fecha.getDay() === 6;
+    if (!finde || siempreFinde || delDia.length) {
+      dias.push({ fecha, clave, eventos: delDia, esHoy: clave === hoy, finde });
+    }
   }
 
+  const primero = dias[0].fecha;
   const ultimo = dias[dias.length - 1].fecha;
-  $("rango-semana").textContent = textoRango(lunes, ultimo);
-  $("curso").textContent = textoCurso(lunes);
-  document.title = `Agenda ${textoRango(lunes, ultimo)} · CIFP Las Indias`;
+  $("rango-semana").textContent = textoRango(primero, ultimo);
+  $("curso").textContent = textoCurso(sumarDias(inicio, 3)); // el miércoles decide el curso
+  document.title = `Agenda ${textoRango(primero, ultimo)} · CIFP Las Indias`;
 
   // Pestañas
   $("pestanas").innerHTML = dias.map((d, i) => `
@@ -140,7 +148,7 @@ function pintarSemana(diaInicial) {
   [...pista.children].forEach(slide => observador.observe(slide));
 
   // Avisos cuyo periodo coincide con esta semana
-  const fin = claveFecha(sumarDias(lunes, 6));
+  const fin = claveFecha(sumarDias(inicio, 6));
   const visibles = avisos.filter(a => a.desde <= fin && (a.hasta || a.desde) >= semanaActual);
   $("avisos").hidden = visibles.length === 0;
   $("avisos-lista").innerHTML = visibles.map(a => `
@@ -153,11 +161,13 @@ function pintarSemana(diaInicial) {
   $("anterior").disabled = !semanas.some(s => s < semanaActual);
   $("siguiente").disabled = !semanas.some(s => s > semanaActual);
 
-  // Día inicial: el pedido, hoy si cae en esta semana, o el primero con eventos
-  let inicio = dias.findIndex(d => d.clave === diaInicial);
-  if (inicio < 0) inicio = dias.findIndex(d => d.esHoy);
-  if (inicio < 0) inicio = Math.max(0, dias.findIndex(d => d.eventos.length));
-  irADia(inicio, false);
+  // Día inicial: el pedido; hoy si cae en esta semana (salvo un fin de semana
+  // sin eventos); el primero con eventos; o el primer día laborable.
+  let elegido = dias.findIndex(d => d.clave === diaInicial);
+  if (elegido < 0) elegido = dias.findIndex(d => d.esHoy && (!d.finde || d.eventos.length));
+  if (elegido < 0) elegido = dias.findIndex(d => d.eventos.length);
+  if (elegido < 0) elegido = Math.max(0, dias.findIndex(d => !d.finde));
+  irADia(elegido, false);
 }
 
 // ---------- Carrusel ----------
@@ -221,8 +231,8 @@ function moverSemana(direccion) {
 // la próxima con eventos o, si no hay ninguna futura, la actual (aunque esté vacía).
 function semanaInicial() {
   const hash = location.hash.slice(1);
-  if (/^\d{4}-\d{2}-\d{2}$/.test(hash)) return { semana: claveFecha(lunesDe(leerFecha(hash))), dia: hash };
-  const actual = claveFecha(lunesDe(new Date()));
+  if (/^\d{4}-\d{2}-\d{2}$/.test(hash)) return { semana: claveFecha(inicioSemana(leerFecha(hash))), dia: hash };
+  const actual = claveFecha(inicioSemana(new Date()));
   return { semana: semanas.find(s => s >= actual) || actual };
 }
 
@@ -358,11 +368,11 @@ async function iniciar() {
     return;
   }
 
-  semanas = [...new Set(eventos.map(e => claveFecha(lunesDe(leerFecha(e.fecha)))))].sort();
+  semanas = [...new Set(eventos.map(e => claveFecha(inicioSemana(leerFecha(e.fecha)))))].sort();
 
   $("anterior").onclick = () => moverSemana(-1);
   $("siguiente").onclick = () => moverSemana(1);
-  $("hoy").onclick = () => irASemana(claveFecha(lunesDe(new Date())));
+  $("hoy").onclick = () => irASemana(claveFecha(inicioSemana(new Date())));
   $("dia-anterior").onclick = () => irADia(indiceDia - 1);
   $("dia-siguiente").onclick = () => irADia(indiceDia + 1);
 

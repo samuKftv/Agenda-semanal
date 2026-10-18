@@ -14,6 +14,7 @@ hoja lo explica paso a paso.
    - **Fecha**, **Categoría** y **Título** son obligatorios. Si falta el título, la celda se pone roja.
    - **Hora** puede ser `9:00` o `9:00-14:00`. Sin hora, el evento sale al final del día.
    - **Día** y **Semana** se calculan solas, y las semanas alternas salen en color.
+     Las semanas van de domingo a sábado.
    - El orden de las filas da igual: la web coloca cada evento en su semana y su día.
 2. En la pestaña **Convocatorias** van los avisos que se ven bajo la agenda durante un
    periodo (Desde – Hasta).
@@ -74,3 +75,6 @@ copia de seguridad si Google falla.
 
 - Enlace directo a un día: `https://USUARIO.github.io/Agenda-semanal/#2026-04-15`
 - En el ordenador se cambia de día con las flechas del teclado ← →.
+- La semana empieza en domingo. Para volver a empezar en lunes, pon `primerDia: "lunes"` en
+  `js/config.js`. Para ocultar sábado y domingo cuando no tengan eventos, pon
+  `finDeSemana: "con-eventos"`.
