@@ -21,5 +21,5 @@ const CONFIG = {
   filaCabecera: 3,
   primerDia: "domingo",
   finDeSemana: "siempre",
-  urlVisitas: "",
+  urlVisitas: "https://script.google.com/macros/s/AKfycbwiy6kORFEKK5A1MPdy3MEhRNEZLvOylZ5PchFt4wZrtJ6ySnQvAWrLeicSjJ58qpK9/exec",
 };
