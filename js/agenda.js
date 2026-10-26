@@ -356,6 +356,21 @@ async function cargarDatos() {
   return cargarDesdeArchivo();
 }
 
+// ---------- Contador de visitas ----------
+// Avisa a la hoja de Google (CONFIG.urlVisitas) de que alguien ha abierto la agenda.
+// Solo cuenta una vez por pestaña del navegador y solo en la web publicada.
+function contarVisita(semana) {
+  if (typeof CONFIG === "undefined" || !CONFIG.urlVisitas) return;
+  if (!location.hostname.endsWith("github.io")) return;
+  try {
+    if (sessionStorage.getItem("agenda-visita")) return;
+    sessionStorage.setItem("agenda-visita", "1");
+  } catch (e) { /* sin almacenamiento: se cuenta igualmente */ }
+  const dispositivo = matchMedia("(max-width: 760px)").matches ? "movil" : "ordenador";
+  fetch(`${CONFIG.urlVisitas}?d=${dispositivo}&s=${semana}`, { mode: "no-cors", keepalive: true })
+    .catch(() => { /* si falla, la agenda sigue funcionando */ });
+}
+
 // ---------- Arranque ----------
 async function iniciar() {
   try {
@@ -378,6 +393,7 @@ async function iniciar() {
 
   const { semana, dia } = semanaInicial();
   irASemana(semana, dia);
+  contarVisita(semana);
 }
 
 iniciar();

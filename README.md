@@ -55,6 +55,18 @@ copia de seguridad si Google falla.
 2. En el repositorio: **Settings → Pages → Source: Deploy from a branch → main / (root)**.
 3. En un minuto la web estará en `https://USUARIO.github.io/Agenda-semanal/`.
 
+## Contador de visitas (opcional)
+
+Cada vez que alguien abre la agenda se añade una fila en la pestaña **Visitas** de la hoja
+(fecha y hora, móvil u ordenador y semana vista). No se guarda ningún dato personal. Se
+cuenta una vez por pestaña del navegador, así que las recargas no suman.
+
+1. En la hoja: **Extensiones → Apps Script**. Borra lo que haya y pega `scripts/contador-visitas.gs`.
+2. Guarda, elige la función `prepararHoja` y pulsa **Ejecutar**. Acepta los permisos.
+3. **Implementar → Nueva implementación → Aplicación web**, con «Ejecutar como: Yo» y
+   «Quién tiene acceso: Cualquier persona». Copia la URL que termina en `/exec`.
+4. Pega esa URL en `urlVisitas` dentro de `js/config.js`.
+
 ## Archivos
 
 | Archivo | Para qué sirve |
@@ -66,6 +78,7 @@ copia de seguridad si Google falla.
 | `datos/eventos.json` | Eventos de respaldo si no hay hoja configurada |
 | `img/logotipo.png` | Logotipo del centro |
 | `plantilla/Agenda-semanal-hoja.xlsx` | Pestañas con formato para crear la hoja de Google |
+| `scripts/contador-visitas.gs` | Contador de visitas para pegar en Apps Script |
 
 ## Trucos
 
