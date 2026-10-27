@@ -10,9 +10,12 @@ Todo se hace en la hoja de Google de la agenda. La pestaña **«Cómo se usa»**
 hoja lo explica paso a paso.
 
 1. En la pestaña **Agenda**, escribe una fila por evento en la primera fila libre:
-   Fecha, Hora, Categoría, Título, Texto y Enlace.
+   Fecha, Hora, Categoría, Título, Texto, Enlace y Foto.
    - **Fecha**, **Categoría** y **Título** son obligatorios. Si falta el título, la celda se pone roja.
    - **Hora** puede ser `9:00` o `9:00-14:00`. Sin hora, el evento sale al final del día.
+   - **Foto** (opcional): sube la foto a la carpeta de Drive de la agenda, que debe estar
+     compartida como «Cualquier persona con el enlace → Lector», y pega el enlace de la foto
+     (botón derecho → Compartir → Copiar enlace). También vale la dirección directa de una imagen.
    - **Día** y **Semana** se calculan solas, y las semanas alternas salen en color.
      Las semanas van de domingo a sábado.
    - El orden de las filas da igual: la web coloca cada evento en su semana y su día.

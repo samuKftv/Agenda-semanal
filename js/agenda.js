@@ -78,10 +78,27 @@ const $ = id => document.getElementById(id);
 const pista = $("pista");
 
 // ---------- Pintar ----------
+// Foto de un evento: acepta un enlace de Google Drive (archivo compartido con
+// «Cualquier persona con el enlace») o la dirección directa de una imagen.
+function datosFoto(enlace = "") {
+  const texto = String(enlace).trim();
+  const id = (texto.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]{20,})/) || [])[1];
+  if (id) return {
+    miniatura: `https://drive.google.com/thumbnail?id=${id}&sz=w1200`,
+    original: `https://drive.google.com/file/d/${id}/view`,
+  };
+  if (/^https?:\/\//.test(texto)) return { miniatura: texto, original: texto };
+  return null;
+}
+
 function tarjetaEvento(ev) {
   const cat = CATEGORIAS[ev.categoria] || CATEGORIAS.otro;
+  const foto = datosFoto(ev.foto);
   return `
     <article class="evento" style="--color:${cat.color};--color-suave:${cat.suave}">
+      ${foto ? `<a class="evento__foto" href="${escapar(foto.original)}" target="_blank" rel="noopener" aria-label="Ver la foto en grande">
+        <img src="${escapar(foto.miniatura)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.remove()">
+      </a>` : ""}
       <div class="evento__meta">
         <span class="evento__categoria">${escapar(cat.nombre)}</span>
         ${ev.hora ? `<span class="evento__hora">${ICONO_RELOJ}${escapar(formatearHora(ev.hora))}</span>` : ""}
@@ -320,6 +337,7 @@ async function cargarDesdeHoja() {
       titulo: f.titulo,
       texto: f.texto,
       enlace: f.enlace,
+      foto: f.foto,
     }))
     .filter(e => {
       // Fuera filas incompletas y repetidas
