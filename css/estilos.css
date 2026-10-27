@@ -317,15 +317,16 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--turquesa); outl
   overflow: hidden;
   background: var(--color-suave);
 }
+/* La foto se ve entera: se reduce lo necesario y, si es vertical, quedan
+   bandas laterales del color suave de la categoría */
 .evento__foto img {
   display: block;
   width: 100%;
   max-width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  transition: transform .3s ease;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
 }
-.evento__foto:hover img { transform: scale(1.03); }
 .evento__enlace, .aviso__enlace {
   align-self: flex-start;
   margin-top: 4px;
