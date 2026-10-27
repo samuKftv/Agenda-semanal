@@ -218,6 +218,7 @@ let esperaScroll;
 pista.addEventListener("scroll", () => {
   clearTimeout(esperaScroll);
   esperaScroll = setTimeout(() => {
+    if (!pista.clientWidth) return; // página oculta o sin ancho todavía
     const i = Math.round(pista.scrollLeft / pista.clientWidth);
     if (i !== indiceDia) { indiceDia = i; marcarDia(); }
   }, 80);
